@@ -1,16 +1,47 @@
 import Image from 'next/image';
 import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import { SignInWithLens } from '@lens-protocol/widgets-react';
+import { setCookie } from 'cookies-next';
 
 export default function Home() {
+  async function onSignIn(tokens: any, profile: any) {
+    console.log('tokens: ', tokens);
+    console.log('profile: ', profile);
+    setCookie('lensProfile', JSON.stringify(profile), {
+      maxAge: 60 * 60 * 24 * 7,
+    });
+    window.location.href = '/profile';
+  }
   return (
     <main className={'main min-h-screen p-24'}>
       <div className={'container'}>
-        <form>
+        <div className={'flex flex-col items-center justify-center'}>
+          <div>
+            <div
+              className={
+                'text-6xl font-bold text-center text-white items-center justify-center '
+              }
+            >
+              <div className='inline-flex items-center justify-center'>
+                Decentralens
+                <span className='ml-2 bg-green-100 text-green-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300'>
+                  Beta
+                </span>
+              </div>
+            </div>
+            <div className={'text-3xl font-bold text-center text-white pt-2'}>
+              All in one profile explorer
+            </div>
+          </div>
+          <div className={'pt-2'}>
+            {/* @ts-ignore */}
+            <SignInWithLens theme='green' size={'large'} onSignIn={onSignIn} />
+          </div>
+        </div>
+        {/* <form>
           <label
             htmlFor='default-search'
-            className='mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white'
+            className='mb-2 text-sm font-medium  text-gray-900 sr-only dark:text-white'
           >
             Search
           </label>
@@ -35,7 +66,7 @@ export default function Home() {
             <input
               type='search'
               id='default-search'
-              className='block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='Search Mockups, Logos...'
               required
             />
@@ -46,7 +77,7 @@ export default function Home() {
               Search
             </button>
           </div>
-        </form>
+        </form> */}
       </div>
     </main>
   );
