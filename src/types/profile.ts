@@ -1,3 +1,67 @@
+export type InterestIntersection = {
+  interest: Interest;
+  count: number;
+}
+
+export type Analytics = {
+  interests: InterestIntersection[];
+  stats: AvgFollowerStats;
+}
+
+export type Interest = {
+  name: string;
+  formattedName: string;
+}
+
+export type AvgFollowerStats = {
+  avgFollowers: number;
+  avgFollowing: number;
+  avgPosts: number;
+}
+
+export type FollowerStats = {
+  totalFollowers: number;
+  totalFollowing: number;
+  totalPosts: number;
+}
+
+export type Follower = {
+  address: string;
+  name: string;
+  bio: string;
+  handle: string;
+  interests: string[];
+  profileImageUrl: string;
+  stats: FollowerStats
+}
+
+export type FollowersDashboard = {
+  followers: Follower[];
+  count: number;
+}
+
+export type UserNft = {
+  name: string;
+  contractAddress: string;
+  tokenId: string;
+  contentURI: string;
+  chainId: number;
+}
+
+export type NftDashboard = {
+  nfts: UserNft[];
+  count: number;
+}
+
+export type Dashboards = {
+  followers: FollowersDashboard;
+  interests: InterestIntersection[];
+  stats: AvgFollowerStats;
+  nfts: NftDashboard;
+  profile: Profile
+}
+// ------------
+
 export type Attribute = {
   displayType: string;
   traitType: string | null;
@@ -43,54 +107,6 @@ export type Profile = {
   followModule: null;
   __typename: string;
 };
-
-export type InterestIntersection = {
-  interest: Interest;
-  count: number;
-}
-
-export type Analytics = {
-  interests: InterestIntersection[];
-  stats: AvgFollowerStats;
-}
-
-export type Interest = {
-  name: string;
-  formattedName: string;
-}
-
-export type AvgFollowerStats = {
-  avgFollowers: number;
-  avgFollowing: number;
-  avgPosts: number;
-}
-
-export type FollowerStats = {
-  totalFollowers: number;
-  totalFollowing: number;
-  totalPosts: number;
-}
-
-export type Follower = {
-  address: string;
-  name: string;
-  bio: string;
-  handle: string;
-  interests: string[];
-  profileImageUrl: string;
-  stats: FollowerStats
-}
-
-export type FollowersDashboard = {
-  followers: Follower[];
-  count: number;
-}
-
-export type Dashboards = {
-  followers: FollowersDashboard;
-  interests: InterestIntersection[];
-  stats: AvgFollowerStats;
-}
 
 export type ProfileWithAnalytics = {
   profile: Profile;

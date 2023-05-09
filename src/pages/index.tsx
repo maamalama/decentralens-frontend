@@ -2,15 +2,23 @@ import Image from 'next/image';
 import { Inter } from 'next/font/google';
 import { SignInWithLens } from '@lens-protocol/widgets-react';
 import { setCookie } from 'cookies-next';
+import { useState } from 'react';
 
 export default function Home() {
+  const [profile, setProfile] = useState<string>('');
+
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    window.location.href = `/profile/${profile}`;
+  };
+
   async function onSignIn(tokens: any, profile: any) {
     console.log('tokens: ', tokens);
     console.log('profile: ', profile);
     setCookie('lensProfile', JSON.stringify(profile), {
       maxAge: 60 * 60 * 24 * 7,
     });
-    window.location.href = '/profile';
+    window.location.href = `/profile/${profile.handle}`;
   }
   return (
     <main className={'main min-h-screen p-24'}>
@@ -38,7 +46,7 @@ export default function Home() {
             <SignInWithLens theme='green' size={'large'} onSignIn={onSignIn} />
           </div>
         </div>
-        {/* <form>
+        <form className='pt-8' onSubmit={handleSearch}>
           <label
             htmlFor='default-search'
             className='mb-2 text-sm font-medium  text-gray-900 sr-only dark:text-white'
@@ -65,19 +73,21 @@ export default function Home() {
             </div>
             <input
               type='search'
+              value={profile}
+              onChange={(e) => setProfile(e.target.value)}
               id='default-search'
-              className='block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-              placeholder='Search Mockups, Logos...'
+              className='block w-full p-4 pl-10 text-xl text-gray-900 border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              placeholder='0xfly.lens...'
               required
             />
             <button
               type='submit'
-              className='text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              className='text-white absolute right-2.5 bottom-3.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
             >
               Search
             </button>
           </div>
-        </form> */}
+        </form>
       </div>
     </main>
   );
