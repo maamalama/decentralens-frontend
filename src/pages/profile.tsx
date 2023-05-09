@@ -27,11 +27,17 @@ import {
   DeltaType,
   Grid,
   Icon,
+  Title,
+  Bold,
+  BarList,
+  List,
+  ListItem,
 } from '@tremor/react';
 import React from 'react';
 import axiosInstance from '../utils/axios';
 import NftCell from './components/nft-cell';
 import { ThemeProvider, createTheme } from '@mui/material';
+import { columns } from './components/grid-data';
 
 const SMuiDataGrid = styled(MuiDataGrid)(() => ({
   color: '#fff',
@@ -69,6 +75,7 @@ const dataGridTheme = createTheme({
         },
       },
     },
+    // @ts-ignore
     MuiDataGrid: {
       styleOverrides: {
         sortIcon: {
@@ -93,6 +100,11 @@ const TableCard = styled('div')(() => ({
   overflow: 'hidden',
   border: '1px solid #fff',
 }));
+
+type BarListType = {
+  name: string;
+  value: number;
+};
 
 export const getServerSideProps: GetServerSideProps<{
   data: ProfileWithAnalytics;
@@ -119,6 +131,21 @@ export const getServerSideProps: GetServerSideProps<{
 export default function Profile({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const barListData: BarListType[] = data.dashboards.interests.map(
+    (interest) => {
+      return {
+        name: interest.interest.formattedName,
+        value: interest.count,
+      };
+    }
+  );
+
+  const followersStats = [
+    { 'Avg Followers': data.dashboards.stats.avgFollowers },
+    { 'Avg Following': data.dashboards.stats.avgFollowing },
+    { 'Avg Posts': data.dashboards.stats.avgPosts },
+  ];
+
   const rows: GridRowsProp = data.dashboards.followers.followers.map(
     (follower, idx) => {
       return {
@@ -133,73 +160,6 @@ export default function Profile({
       };
     }
   );
-
-  const columns: GridColDef[] = [
-    {
-      field: 'pfp',
-      headerName: 'PFP',
-      width: 70,
-      renderCell: NftCell,
-      sortable: false,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col1',
-      headerName: 'Handle',
-      width: 160,
-      sortable: false,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col2',
-      headerName: 'Address',
-      width: 400,
-      sortable: false,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col3',
-      headerName: 'Name',
-      width: 150,
-      sortable: false,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col4',
-      headerName: 'Following',
-      width: 100,
-      sortable: true,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col5',
-      headerName: 'Followers',
-      width: 100,
-      sortable: true,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-    {
-      field: 'col6',
-      headerName: 'Posts',
-      width: 100,
-      sortable: true,
-      resizable: false,
-      disableColumnMenu: true,
-      disableReorder: true,
-    },
-  ];
 
   const { ref, copied, onCopy } = useClipboard({ duration: 1000 });
   return (
@@ -259,7 +219,9 @@ export default function Profile({
                     color={'neutral'}
                   />
                   <div className='truncate'>
-                    <Text className='text-md'>Total Followers</Text>
+                    <Text className='text-md font-bold text-gray-400'>
+                      Total Followers
+                    </Text>
                     <Metric className='truncate text-white'>
                       {data.profile.stats.totalFollowers}
                     </Metric>
@@ -278,7 +240,9 @@ export default function Profile({
                     color={'neutral'}
                   />
                   <div className='truncate'>
-                    <Text className='text-md'>Total Following</Text>
+                    <Text className='text-md font-bold text-gray-400'>
+                      Total Following
+                    </Text>
                     <Metric className='truncate text-white'>
                       {data.profile.stats.totalFollowing}
                     </Metric>
@@ -297,7 +261,9 @@ export default function Profile({
                     color={'neutral'}
                   />
                   <div className='truncate'>
-                    <Text className='text-md'>Total Posts</Text>
+                    <Text className='text-md font-bold text-gray-400'>
+                      Total Posts
+                    </Text>
                     <Metric className='truncate text-white'>
                       {data.profile.stats.totalPosts}
                     </Metric>
@@ -316,7 +282,9 @@ export default function Profile({
                     color={'neutral'}
                   />
                   <div className='truncate'>
-                    <Text className='text-md'>Total Mirrors</Text>
+                    <Text className='text-md font-bold text-gray-400'>
+                      Total Mirrors
+                    </Text>
                     <Metric className='truncate text-white'>
                       {data.profile.stats.totalMirrors}
                     </Metric>
@@ -324,6 +292,50 @@ export default function Profile({
                 </Flex>
               </Card>
             </Grid>
+            <div className='text-2xl font-bold pt-8'>Audience Insights</div>
+            <div className='flex flex-row'>
+              <Card className='card-scrollbar  max-h-96 overflow-auto mt-4 bg-[#171717]'>
+                <Title className='text-gray-400'>Interests of Followers</Title>
+                <Flex className='mt-4'>
+                  <Text>
+                    <Bold>Topic</Bold>
+                  </Text>
+                  <Text>
+                    <Bold>Followers</Bold>
+                  </Text>
+                </Flex>
+                <BarList
+                  data={barListData}
+                  className='mt-2 color'
+                  color='neutral'
+                  showAnimation={false}
+                />
+              </Card>
+              <Card className='card-scrollbar  max-h-96 overflow-auto mt-4 bg-[#171717] ml-6'>
+                <Title className='text-gray-400'>Followers Stats</Title>
+                <List>
+                  <ListItem>
+                    <span className='text-white text-lg'>Avg Followers</span>
+                    <span className='text-white text-lg'>
+                      {data.dashboards.stats.avgFollowers}
+                    </span>
+                  </ListItem>
+                  <ListItem>
+                    <span className='text-white text-lg'>Avg Following</span>
+                    <span className='text-white text-lg'>
+                      {data.dashboards.stats.avgFollowing}
+                    </span>
+                  </ListItem>
+                  <ListItem>
+                    <span className='text-white text-lg'>Avg Posts</span>
+                    <span className='text-white text-lg'>
+                      {data.dashboards.stats.avgPosts}
+                    </span>
+                  </ListItem>
+                </List>
+              </Card>
+            </div>
+
             <div className='text-2xl font-bold pt-8'>Followers</div>
             <div className='mt-6 h-[100%]'>
               <TableCard>

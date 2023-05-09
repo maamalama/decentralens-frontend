@@ -27,3 +27,25 @@ body {
   padding: 0 15px;
   margin: 0 auto;
 }
+
+.tremor-BarList-labelText {
+  &.whitespace-nowrap.truncate.text-gray-700.text-sm {
+    color: #ffffff !important;
+  }
+}
+
+.card-scrollbar {
+  overflow-y: auto;
+
+&::-webkit-scrollbar {
+    width: 10px;
+    /* высота для горизонтального скролла */
+    background-color: transparent;
+  }
+
+  /* ползунок скроллбара */
+  &::-webkit-scrollbar-thumb {
+    background: #f7f7f7;
+    border-radius: 9em;
+  }
+}
