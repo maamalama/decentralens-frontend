@@ -59,6 +59,31 @@ const dataGridTheme = createTheme({
         },
       },
     },
+    MuiTablePagination: {
+      styleOverrides: {
+        toolbar: {
+          color: 'white',
+        },
+        select: {
+          color: 'white',
+        },
+      },
+    },
+    MuiDataGrid: {
+      styleOverrides: {
+        sortIcon: {
+          color: 'white',
+        },
+        columnHeaderTitle: {
+          fontSize: '1rem',
+          color: 'white',
+        },
+        cell: {
+          fontSize: '0.95rem',
+          color: '#c9c9c9',
+        },
+      },
+    },
   },
 });
 
@@ -113,7 +138,7 @@ export default function Profile({
     {
       field: 'pfp',
       headerName: 'PFP',
-      width: 50,
+      width: 70,
       renderCell: NftCell,
       sortable: false,
       resizable: false,
@@ -123,7 +148,7 @@ export default function Profile({
     {
       field: 'col1',
       headerName: 'Handle',
-      width: 150,
+      width: 160,
       sortable: false,
       resizable: false,
       disableColumnMenu: true,
