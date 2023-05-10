@@ -1,5 +1,5 @@
 import { GridColDef } from '@mui/x-data-grid';
-import NftCell from './nft-cell';
+import NftCell from './pages/components/nft-cell';
 
 export const columns: GridColDef[] = [
   {

@@ -93,20 +93,26 @@ export default function Home() {
               </form>
               <div className='pt-4 pl-4 text-white font-medium text-3xl text-center'>
                 Unlock the insights to your audience's behavior
-                <img src={'/profile.png'} alt={'Profile'} />
+                <picture>
+                  <img src={'/profile.png'} alt={'Profile'} />
+                </picture>
               </div>
 
               <div className='pt-4 pl-4 text-white font-medium text-3xl'>
                 Explore your followers' profiles
               </div>
               <div className='px-16'>
-                <img src={'/followers.png'} alt={'Followers'} />
+                <picture>
+                  <img src={'/followers.png'} alt={'Followers'} />
+                </picture>
               </div>
               <div className='pt-4 pl-4 text-white font-medium text-3xl'>
                 Discover new and exciting profiles
               </div>
               <div className='px-16'>
-                <img src={'/recommended.png'} alt={'Recommended'} />
+                <picture>
+                  <img src={'/recommended.png'} alt={'Recommended'} />
+                </picture>
               </div>
             </div>
           </div>

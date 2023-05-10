@@ -42,7 +42,7 @@ import React from 'react';
 import axiosInstance from '../../utils/axios';
 import NftCell from '../components/nft-cell';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { columns } from '../components/grid-data';
+import { columns } from '../../grid-data';
 import NFTCard from '../components/NFTCard';
 import { getIPFSURL } from '../../utils/utils';
 import { AxiosError } from 'axios';
