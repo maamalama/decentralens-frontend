@@ -12,6 +12,7 @@ const nextConfig = {
   },
   env:{
     BACKEND_URL: process.env.BACKEND_URL,
+    APP_URL: process.env.APP_URL,
   }
 }
 

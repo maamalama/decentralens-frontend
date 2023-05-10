@@ -244,7 +244,7 @@ const Name: NextPage = function ({
 
   const handleOnCellClick = (params: any, event: any, details: any) => {
     if (params.field === 'pfp' || params.field === 'col1') {
-      window.open(`http://localhost:3000/profile/${params.row.col1}`);
+      window.open(`${process.env.APP_URL}/profile/${params.row.col1}`);
     }
   };
 
