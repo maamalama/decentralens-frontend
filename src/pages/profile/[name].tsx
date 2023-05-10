@@ -45,7 +45,6 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import { columns } from '../../grid-data';
 import NFTCard from '../components/NFTCard';
 import { getIPFSURL } from '../../utils/utils';
-import { AxiosError } from 'axios';
 import Layout from '../components/layout';
 
 const SMuiDataGrid = styled(MuiDataGrid)(() => ({
