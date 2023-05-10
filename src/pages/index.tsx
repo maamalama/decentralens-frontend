@@ -46,7 +46,7 @@ export default function Home() {
             <SignInWithLens theme='green' size={'large'} onSignIn={onSignIn} />
           </div>
         </div>
-        <form className='pt-8' onSubmit={handleSearch}>
+        <form className='' onSubmit={handleSearch}>
           <label
             htmlFor='default-search'
             className='mb-2 text-sm font-medium  text-gray-900 sr-only dark:text-white'
@@ -76,13 +76,13 @@ export default function Home() {
               value={profile}
               onChange={(e) => setProfile(e.target.value)}
               id='default-search'
-              className='block w-full p-4 pl-10 text-xl text-gray-900 border border-gray-300 rounded-lg bg-black focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+              className='block w-full p-4 pl-10 text-xl text-gray-900 bg-[#171717] border border-[#fff] rounded-lg focus:ring-blue-500 focus:border-blue-500  dark:border-[#fff]  dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
               placeholder='0xfly.lens...'
               required
             />
             <button
               type='submit'
-              className='text-white absolute right-2.5 bottom-3.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
+              className='text-md text-white absolute right-2.5 bottom-3 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg  px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800'
             >
               Search
             </button>
