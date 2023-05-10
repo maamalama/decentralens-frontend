@@ -46,6 +46,7 @@ import { columns } from '../../grid-data';
 import NFTCard from '../components/NFTCard';
 import { getIPFSURL } from '../../utils/utils';
 import Layout from '../components/layout';
+import { useRouter } from 'next/router';
 
 const SMuiDataGrid = styled(MuiDataGrid)(() => ({
   color: '#fff',
@@ -165,14 +166,15 @@ const Name: NextPage = function ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [profile, setProfile] = useState<string>('');
   const [show, setShow] = useState(false);
+  const router = useRouter();
 
   const handleSearch = (e: any) => {
     e.preventDefault();
-    window.location.href = `/profile/${profile}`;
+    router.push(`/profile/${profile}`);
   };
 
   const handleCardClick = (handle: string) => {
-    window.location.href = `/profile/${handle}`;
+    router.push(`/profile/${handle}`);
   };
 
   if (error) {
@@ -240,7 +242,7 @@ const Name: NextPage = function ({
 
   const handleOnCellClick = (params: any, event: any, details: any) => {
     if (params.field === 'pfp' || params.field === 'col1') {
-      window.open(`${process.env.APP_URL}/profile/${params.row.col1}`);
+      window.location.href = `/profile/${params.row.col1}`;
     }
   };
 
