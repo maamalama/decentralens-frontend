@@ -32,15 +32,15 @@ export default function Home() {
                 <div>
                   <div
                     className={
-                      'text-6xl font-bold text-center text-white items-center justify-center '
+                      'font-bold text-center text-white items-center justify-center '
                     }
                   >
-                    <div className='inline-flex items-center justify-center'>
+                    <p className='xl:text-6xl text-4xl inline-flex items-center justify-center'>
                       Decentralens
                       <span className='ml-2 bg-green-100 text-green-800 text-xl font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300'>
                         Beta
                       </span>
-                    </div>
+                    </p>
                   </div>
                   <div
                     className={'text-3xl font-bold text-center text-white pt-2'}
