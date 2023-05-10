@@ -3,7 +3,7 @@ const ipfsGateway = 'https://lens.infura-ipfs.io';
 export const getIPFSURL = (picture: any) => {
   let url = '';
   if (!picture) {
-    return url;
+    return '/lens.jpeg';
   }
   if (picture.__typename === 'MediaSet') {
     url = picture.original.url;

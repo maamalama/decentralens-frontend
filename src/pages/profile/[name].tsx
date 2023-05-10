@@ -168,10 +168,15 @@ const Name: NextPage = function ({
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [profile, setProfile] = useState<string>('');
+  const [show, setShow] = useState(false);
 
   const handleSearch = (e: any) => {
     e.preventDefault();
     window.location.href = `/profile/${profile}`;
+  };
+
+  const handleCardClick = (handle: string) => {
+    window.location.href = `/profile/${handle}`;
   };
 
   if (error) {
@@ -258,15 +263,15 @@ const Name: NextPage = function ({
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { ref, copied, onCopy } = useClipboard({ duration: 1000 });
+  const slisedAddress =
+    data!.profile.ownedBy.slice(0, 4) + '...' + data!.profile.ownedBy.slice(-4);
 
   return (
     <>
-      <main className={'main min-h-screen px-24'}>
-        <div className={'container'}>
-          <div
-            className={'flex flex-col items-center justify-center min-w-full'}
-          >
-            <div className='p-6 sm:p-12 dark:text-gray-100  min-w-full'>
+      <main className='main min-h-screen px-6 sm:px-12 md:px-24'>
+        <div className='mx-auto max-w-7xl'>
+          <div className='flex flex-col gap-[24px]'>
+            <div className='p-6 sm:p-12 dark:text-gray-100 min-w-full'>
               <form className='' onSubmit={handleSearch}>
                 <label
                   htmlFor='default-search'
@@ -318,31 +323,37 @@ const Name: NextPage = function ({
                   className='self-center flex-shrink-0 w-24 h-24 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700'
                 />
                 <div className='flex flex-col'>
-                  <h1 className='text-4xl font-semibold text-center md:text-left'>
+                  <h1 className='xs:text-xl text-4xl font-semibold text-center md:text-left'>
                     {data!.profile.name}
                   </h1>
                   <div className='flex items-start'>
-                    <h1 className='text-2xl'>Bio: </h1>
-                    <p className=' pl-2 text-2xl dark:text-gray-400'>
+                    <h1 className='xs:text-lg text-2xl'>Bio: </h1>
+                    <p className='xs:text-lg pl-2 text-2xl dark:text-gray-400'>
                       {data!.profile.bio}
                     </p>
                   </div>
                   <div className='flex items-start'>
-                    <h1 className='text-2xl'>Address: </h1>
-                    {/*@ts-ignore */}
-                    <p ref={ref} className=' pl-2 text-2xl dark:text-gray-400'>
-                      {data!.profile.ownedBy}
+                    <h1 className='xs:text-sm text-2xl'>Address: </h1>
+                    <p
+                      //@ts-ignore
+                      ref={ref}
+                      className='xs:text-xs pl-2 text-2xl dark:text-gray-400'
+                    >
+                      {show ? data!.profile.ownedBy : slisedAddress}
                     </p>
-                    {copied ? (
-                      <span className='cursor-pointer ml-2 bg-green-100 text-green-800 text-md font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300'>
-                        Copied!
+                    {show ? (
+                      <span
+                        onClick={() => setShow(!show)}
+                        className='xs:text-xs  cursor-pointer ml-2 bg-green-100 text-green-800 text-md font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300'
+                      >
+                        Hide
                       </span>
                     ) : (
                       <span
-                        onClick={onCopy}
-                        className='cursor-pointer ml-2 bg-gray-600 text-gray-800 text-md font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-500 dark:text-gray-300'
+                        onClick={() => setShow(!show)}
+                        className='xs:text-xs  cursor-pointer ml-2 bg-gray-600 text-gray-800 text-md font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-gray-500 dark:text-gray-300'
                       >
-                        Copy
+                        Show
                       </span>
                     )}
                   </div>
@@ -501,37 +512,43 @@ const Name: NextPage = function ({
               <div className='text-2xl font-bold pt-8'>
                 Recommended Profiles
               </div>
-              <div className='container mx-auto px-4 py-8'>
-                <div className='flex flex-wrap justify-between'>
-                  {data!.recomended.map((profile) => (
-                    <div key={profile.id} className='w-full md:w-1/4 p-1'>
-                      <Card
-                        key={'Total Posts'}
-                        className='bg-[#171717] border-[#6b7280] flex'
-                      >
-                        <Flex justifyContent='start' className='space-x-4'>
-                          <Icon
-                            icon={PencilIcon}
-                            variant='simple'
-                            size='sm'
-                            color={'neutral'}
-                          />
-                          <div className='truncate'>
-                            <Text className='text-md font-bold text-gray-400'>
-                              Total Posts
-                            </Text>
-                            <Metric className='truncate text-white'>
-                              {data!.profile.stats.totalPosts}
-                            </Metric>
-                          </div>
-                        </Flex>
-                      </Card>
-                    </div>
-                  ))}
-                  {/* Add more cards as needed */}
-                </div>
+
+              <div className='mt-6 flex flex-wrap justify-between'>
+                {data!.recomended.map((profile) => (
+                  <div
+                    key={profile.id}
+                    className='w-full md:w-1/4 p-2 cursor-pointer'
+                    onClick={() => handleCardClick(profile.handle)}
+                  >
+                    <Card
+                      key={profile.id}
+                      className='bg-[#171717] border-[#6b7280] flex'
+                    >
+                      <Flex justifyContent='start' className='space-x-4'>
+                        <Image
+                          src={getIPFSURL(profile.picture)}
+                          alt={profile.handle}
+                          width={50}
+                          height={50}
+                          className='self-center flex-shrink-0 w-12 h-12 border rounded-full md:justify-self-start dark:bg-gray-500 dark:border-gray-700'
+                        />
+                        <div className='truncate'>
+                          <Text className='text-md font-bold text-gray-300'>
+                            {profile.handle}
+                          </Text>
+                          <Text className='xt-md font-bold text-gray-500'>
+                            {profile.bio
+                              ? profile.bio?.substring(0, 20)
+                              : profile.handle}
+                          </Text>
+                        </div>
+                      </Flex>
+                    </Card>
+                  </div>
+                ))}
+                {/* Add more cards as needed */}
               </div>
-             
+
               <div className='flex justify-center pt-4 space-x-4 align-center'>
                 <a
                   rel='noopener noreferrer'
