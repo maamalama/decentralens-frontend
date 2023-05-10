@@ -9,7 +9,7 @@ import { onlyText } from '../utils/clear-text';
 const Meta: FC<PropsWithChildren<ISeo>> = ({
   title,
   description,
-  image = '/LogoPngSite.ico',
+  image = '/favicon.ico',
   children,
   type = 'website',
 }) => {
@@ -20,7 +20,7 @@ const Meta: FC<PropsWithChildren<ISeo>> = ({
     <>
       <Head>
         <title itemProp='headline'>{titleMerge(title)}</title>
-        <link type='image/x-icon' href='/LogoPngSite.ico' rel='shortcut icon' />
+        <link type='image/x-icon' href='/favicon.ico' rel='shortcut icon' />
         {description ? (
           <>
             <meta
