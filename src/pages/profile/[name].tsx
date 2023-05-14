@@ -170,6 +170,10 @@ const Name: NextPage = function ({
 
   const handleSearch = (e: any) => {
     e.preventDefault();
+    if(!profile) return;
+    if(!profile.includes('.lens')) {
+      setProfile(`${profile}.lens`);
+    }
     router.push(`/profile/${profile}`);
   };
 

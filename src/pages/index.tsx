@@ -11,6 +11,10 @@ export default function Home() {
 
   const handleSearch = (e: any) => {
     e.preventDefault();
+    if (!profile) return;
+    if (!profile.includes('.lens')) {
+      setProfile(`${profile}.lens`);
+    }
     window.location.href = `/profile/${profile}`;
   };
 
